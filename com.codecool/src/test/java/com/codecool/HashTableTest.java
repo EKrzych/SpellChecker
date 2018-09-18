@@ -13,4 +13,11 @@ public class HashTableTest {
         assertTrue(hashTable.lookup("first"));
     }
 
+    @Test
+    public void shouldNOTfindElement() {
+        HashTable hashTable = new HashTable(10, new BetterStringHasher());
+        hashTable.add("first");
+        assertFalse(hashTable.lookup("second"));
+    }
+
 }

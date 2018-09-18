@@ -67,6 +67,9 @@ public class HashTable {
   */
 	public boolean lookup(String stringToCheck) {
         int position = getHash(stringToCheck);
+        if(hashMap[position] == null) {
+            return false;
+        }
         ArrayList <String> list = hashMap[position];
         for(String element : list) {
             if(element.equals(stringToCheck)) {
