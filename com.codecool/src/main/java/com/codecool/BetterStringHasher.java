@@ -19,7 +19,7 @@ public class BetterStringHasher implements StringHasher {
 			h *= 37;
 			h += s.charAt(i);
 		}
-		
+
 		return h;
 	}
 }

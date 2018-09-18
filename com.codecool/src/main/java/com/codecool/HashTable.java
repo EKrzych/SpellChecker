@@ -10,8 +10,13 @@
  */
 package com.codecool;
 
-public class HashTable
-{
+import java.util.ArrayList;
+
+public class HashTable {
+    private ArrayList<String> [] hashMap;
+    StringHasher hasher;
+
+
 	/**
    * The constructor is given a table size (i.e. how big to make the array)
    * and a StringHasher, which is used to hash the strings.
@@ -21,7 +26,8 @@ public class HashTable
    * @see StringHasher
    */
 	public HashTable(int tableSize, StringHasher hasher) {
-
+        hashMap = new ArrayList[tableSize];
+        this.hasher = hasher;
 	}
 
 
@@ -29,31 +35,63 @@ public class HashTable
    * Takes a string and adds it to the hash table, if it's not already
    * in the hash table.  If it is, this method has no effect.
    *
-   * @param s String to add
+   * @param stringToAdd String to add
    */
-	public void add(String s) {
+	public void add(String stringToAdd) {
+        int position = getHash(stringToAdd);
+        ArrayList<String> list;
+        if(hashMap[position] == null) {
+            list = hashMap[position] = new ArrayList<>();
+        } else {
+            list = hashMap[position];
+        }
 
+        for(String element : list) {
+            if(element.equals(stringToAdd)) {
+                throw new IllegalArgumentException("Key already in map!");
+            }
+        }
+        list.add(stringToAdd);
 	}
+
+    private int getHash(String s) {
+        return Math.abs(hasher.hash(s) % hashMap.length);
+    }
 	
 
 	/**
   * Takes a string and returns true if that string appears in the
 	* hash table, false otherwise.
   *
-  * @param s String to look up
+  * @param stringToCheck String to look up
   */
-	public boolean lookup(String s) {
+	public boolean lookup(String stringToCheck) {
+        int position = getHash(stringToCheck);
+        ArrayList <String> list = hashMap[position];
+        for(String element : list) {
+            if(element.equals(stringToCheck)) {
+                return true;
+            }
+        }
         return false;
+
 	}
+
 	
 
 	/**
    * Takes a string and removes it from the hash table, if it
    * appears in the hash table.  If it doesn't, this method has no effect.
    *
-   * @param s String to remove
+   * @param stringToRemove String to remove
   */
-	public void remove(String s) {
-
+	public void remove(String stringToRemove) {
+        int position = getHash(stringToRemove);
+        ArrayList <String> list = hashMap[position];
+        list.remove(stringToRemove);
 	}
+
+    public ArrayList<String>[] getHashMap() {
+        return hashMap;
+    }
 }
