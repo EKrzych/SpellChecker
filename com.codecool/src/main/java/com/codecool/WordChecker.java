@@ -17,8 +17,6 @@
 package com.codecool;
 
 import java.util.ArrayList;
-import java.util.Collection;
-
 
 public class WordChecker {
 	private WordList wordList;
@@ -172,8 +170,8 @@ public class WordChecker {
 
 	private String [] createArrayofLetters() {
 		String [] letters = new String [26];
-		int asciiForLowerA = 97;
-		int asciiForLowerZ = 122;
+		int asciiForLowerA = 'a';
+		int asciiForLowerZ = 'z';
 		for(int i = asciiForLowerA, j = 0; i <= asciiForLowerZ; i++, j++){
 			letters[j] = Character.toString ((char) i);
 		}

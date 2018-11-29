@@ -18,6 +18,20 @@ public class HashTableTest {
         HashTable hashTable = new HashTable(10, new BetterStringHasher());
         hashTable.add("first");
         assertFalse(hashTable.lookup("second"));
+}
+
+    @Test
+    public void shouldRemoveWhenExist() {
+        HashTable hashTable = new HashTable(10, new BetterStringHasher());
+        hashTable.add("first");
+        hashTable.add("second");
+        hashTable.remove("first");
+        assertFalse(hashTable.lookup("first"));
+        hashTable.add("first");
+        assertTrue(hashTable.lookup("first"));
+        hashTable.remove("second");
+        assertFalse(hashTable.lookup("second"));
+
     }
 
 }
